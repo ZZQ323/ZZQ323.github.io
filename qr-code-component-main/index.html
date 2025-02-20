@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merienda:wght@300..900&family=Outfit:wght@100..900&family=Playwrite+AU+SA:wght@100..400&display=swap"
+        rel="stylesheet">
+    <title>Frontend Mentor | QR code component</title>
+
+    <!-- import JSZip -->
+    <script src="https://cdn.jsdelivr.net/npm/jszip/dist/jszip.min.js"></script>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        /* DIY Fonts */
+
+        .playwrite-au-sa-<uniquifier> {
+            font-family: "Playwrite AU SA", serif;
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
+        }
+
+        .outfit-<uniquifier> {
+            font-family: "Outfit", serif;
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
+        }
+
+        html{
+            font-family: Outfit;
+            font-size: 15px;
+        }
+
+        body {
+            background-color: hsl(212, 45%, 89%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            row-gap: 10px;
+        }
+
+        .container1 {
+            background-color: white;
+            border: 5px white solid;
+            border-radius: 10px;
+            width: 20vw;
+            height: 65vh;
+            padding: 7px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
+
+        .outline1 {
+            /* border: white solid 3px; */
+            width: 100%;
+        }
+
+        .outline1 img {
+            border-radius: 10px;
+        }
+
+        .outline1 img {
+            max-width: 100%;
+        }
+
+        .heading1 {
+            text-align: center;
+            /* text-indent: 1ch; */
+            padding: 0 10px;
+            color: hsl(218, 44%, 22%);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .para {
+            color: hsl(216, 15%, 48%);
+            font-size: 13px;
+            padding: 0 10px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .attribution {
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .attribution a {
+            color: hsl(228, 45%, 44%);
+        }
+
+        .downloader {
+            /* float: left; */
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 130px;
+            
+            font-family: Outfit;
+            font-size: 13px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button class="downloader"> Click to download this file, if u are in need of the source package! </button>
+    <div class="container1">
+        <div class="outline1">
+            <img src="images/image-qr-code.png" alt="This is a Qr Code for Scanning." />
+        </div>
+        <div class="heading1">
+            <strong>
+                Improve your front-end skills by building projects
+            </strong>
+        </div>
+        <div class="para">
+            Scan the QR code to visit Frontend Mentor and take your coding skills to the next level
+        </div>
+        <div class="attribution">
+            Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+            Coded by <a href="#">Your Name Here</a>.
+        </div>
+    </div>
+
+</body>
+<script>
+    const downloadBtn = document.querySelector(".downloader");
+    downloadBtn.addEventListener("click", async () => {
+        const zip = new JSZip();
+        try {
+            // 根目录
+            const rootFolder = zip.folder("qr-code-component-main");
+
+            // 1) 添加 index.html
+            {
+                const url = "./index.html";
+                const fileData = await fetchAsArrayBuffer(url);
+                rootFolder.file("index.html", fileData);
+            }
+
+            // 2) 打包 design 文件夹
+            {
+                const designFolder = rootFolder.folder("design");
+                // 需要打包的文件列表
+                const designFiles = ["desktop-design.jpg", "mobile-design.jpg"];
+                for (const fileName of designFiles) {
+                    const url = `./design/${fileName}`;
+                    const fileData = await fetchAsArrayBuffer(url);
+                    designFolder.file(fileName, fileData);
+                }
+            }
+
+            // 3) 打包 images 文件夹
+            {
+                const imagesFolder = rootFolder.folder("images");
+                // 需要打包的文件列表
+                const imageFiles = ["favicon-32x32.png", "image-qr-code.png"];
+                for (const fileName of imageFiles) {
+                    const url = `./images/${fileName}`;
+                    const fileData = await fetchAsArrayBuffer(url);
+                    imagesFolder.file(fileName, fileData);
+                }
+            }
+
+            // ... 如果还有其他文件（.gitignore, README-template.md 等），同样的逻辑
+
+            // 4) 生成 ZIP 文件（Blob）
+            const content = await zip.generateAsync({ type: "blob" });
+            triggerDownload(content, "qr-code-component-main.zip");
+
+        } catch (err) {
+            console.error("打包出错：", err);
+        }
+    });
+
+    /**
+     * 使用 fetch 获取文件内容并返回 ArrayBuffer
+     */
+    async function fetchAsArrayBuffer(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Fetch ${url} failed with status ${response.status}`);
+        }
+        return await response.arrayBuffer();
+    }
+
+    /**
+     * 将 Blob 触发为下载
+     */
+    function triggerDownload(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        // 释放对象URL
+        URL.revokeObjectURL(url);
+    }
+</script>
+
+</html>
