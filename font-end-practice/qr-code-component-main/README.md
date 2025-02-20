@@ -39,7 +39,8 @@ body {
 
 ## Continued development
 
-1. I would like to use grid , and I'm working to finish these again by these.
+1. I would like to use grid , and I'm working to finish these again by these. —— as well as @media service for sure.
+
 
 
 
