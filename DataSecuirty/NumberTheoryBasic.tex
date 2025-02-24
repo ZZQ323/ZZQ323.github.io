@@ -1,13 +1,31 @@
-\documentclass{article}
+\documentclass[12pt, letterpaper]{article}
+\title{My first LaTeX document}
+\author{Hubert Farnsworth\thanks{Funded by the Overleaf team.}}
+\date{August 2022}
+\usepackage{graphicx} % LaTeX package to import graphics
+\graphicspath{{images/}} % configuring the graphicx package
+
 \begin{document}
-First document. This is a simple example, with no 
-extra parameters or packages included.
+
+\usetikzlibrary{external}
+\immediate\write18{mkdir -p tmp/tmp/}
+\tikzexternalize[
+    prefix=tmp/,
+    mode=list and make,
+]
+
+\maketitle
+We have now added a title, author and date to our first \LaTeX{} document!
+The universe is immense and it seems to be homogeneous, 
+on a large scale, everywhere we look.
+\\
+% The \includegraphics command is 
+% provided (implemented) by the 
+% graphicx package
+\begin{center}
+    \includegraphics{universe}
+\end{center}
+
+There's a picture of a galaxy above.
 \end{document}
-
-
-
-
-
-
-
 
