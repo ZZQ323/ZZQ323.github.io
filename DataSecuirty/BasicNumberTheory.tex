@@ -53,7 +53,7 @@
 这满足数列收敛的条件 —— 因此$r_{n}$有极限且极限为0；
 由此一来，只要n足够大，那么最后一项就是：
 \begin{equation}
-    r_{}{n-2} = r_{n-1}q_{n}
+    r_{n-2} = r_{n-1}q_{n}
 \end{equation}
 ps：有些参考书会写到n+1，其实都是一样的。
 
@@ -64,7 +64,7 @@ ps：有些参考书会写到n+1，其实都是一样的。
     r_{n-3} &= r_{n-2}q_{n-1}+r_{n-1}=r_{n-1}q_{n}q_{n-1}+r_{n-1}\\
     r_{n-4} &= r_{n-3}q_{n-2}+r_{n-2}=(r_{n-1}q_{n}q_{n-1}+r_{n-1})q_{n-2}+r_{n-1}q_{n}\\ \nonumber
             &=r_{n-1}q_{n}q_{n-1}q_{n-2}+r_{n-1}q_{n-2}+r_{n-1}q_{n}\\
-    \vdots\nonumber\\
+    &\vdots\nonumber\\
     b &= g(q_{n},q_{n-1},q_{n-2},\dots,q_{4},q_{3})\cdot r_{n-1}\\
     r_{1} &= f(q_{n},q_{n-1},q_{n-2},\dots,q_{3},q_{2})\cdot r_{n-1}\\
     a &= h(q_{n},q_{n-1},q_{n-2},\dots,q_{2},q_{1})\cdot r_{n-1}
@@ -103,7 +103,7 @@ ps：有些参考书会写到n+1，其实都是一样的。
     b &= g(q_{n},q_{n-1},q_{n-2},\dots,q_{4},q_{3})\cdot r_{n-1}\\
     r_{1} &= f(q_{n},q_{n-1},q_{n-2},\dots,q_{3},q_{2})\cdot r_{n-1}\\
     a &= h(q_{n},q_{n-1},q_{n-2},\dots,q_{2},q_{1})\cdot r_{n-1}\\
-    a=bq_{1}+r_{1}
+    a &=bq_{1}+r_{1}
 \end{align}
 
 然后带入到最初的式子：
@@ -236,7 +236,7 @@ ps：有些参考书会写到n+1，其实都是一样的。
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{./images/二阶丢番图.png}
+    \includegraphics[width=0.5\textwidth]{./images/二阶丢番图.png}
     \caption{二阶丢番图图解}
     \label{fig.sth}
 \end{figure}
@@ -371,8 +371,8 @@ m 下的解是周期性的，而每个解对应于不同的同余类。
 根据：$C_{n}^m=\dfrac{n!}{(n-m)!m!}$，且p是素数的情况下，我们知道：除了$C_{p}^{0}$ 或 $C_{p}^{p}$，其他都会被mod p 给化掉：
 
 \begin{align*}
-    (1+x)^{p} = \binom{p}{0}a_{0} + \binom{p}{p}a_{p}(\mod p) = 1+x^{p} \\ 
-    (1+x)^{p} - x^{p} = 1
+    (1+x)^{p} &= \binom{p}{0}a_{0} + \binom{p}{p}a_{p} = 1+x^{p} (\mod p)\\ 
+    (1+x)^{p} &- x^{p} = 1 (\mod p)
 \end{align*}
 
 这就是经典的幂函数数列$b_{n}=n^{p}$，上述式子可化为：$b_{n+1}-b_{n}=1$。
