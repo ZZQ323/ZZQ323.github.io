@@ -13,7 +13,10 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
+
 \begin{abstract}
+    还在想的摘要hh
 \end{abstract}
 你好，LaTeX!
 
@@ -134,7 +137,7 @@ ps：有些参考书会写到n+1，其实都是一样的。
 
 由贝祖定理知：如果$d = (a,b)$，则$\exists\;q、p\in Z \;,\;st.\;d=pa+qb$。
 而上面两个式子无非就是令$b=ka+b$或者$a=kb+a$，展开来都是一致的，不需要证明什么东西。
-甚至，你令$a=frac{a+b}{2}$、$b=frac{a-b}{2}$，这样搞换底也是可以的。
+甚至，你令$a=\dfrac{a+b}{2}$、$b=\dfrac{a-b}{2}$，这样搞换底也是可以的。
 
 
 \subsection{拉梅定理}
@@ -359,17 +362,62 @@ m 下的解是周期性的，而每个解对应于不同的同余类。
 
 \subsection{费马小定理}
 
-考虑$(1+x)^{\alpha}$的二项式展开：
-\begin{align}
-    (1+x)^{\alpha}=\binom{n}{k}
-\end{align}
+\subsubsection{二项式式展开证明}
+考虑$(1+x)^{p}$的二项式展开：
+\begin{align*}
+    (1+x)^{p} = \sum_{i=0}^{p}\binom{p}{i}a_{i} = \binom{p}{0}a_{0} + \binom{p}{1}a_{1} + \binom{p}{2}a_{2} + \dots + \binom{p}{p-1}a_{p-1} + \binom{p}{p}a_{p}
+\end{align*}
 
-\subsection{求逆}
+根据：$C_{n}^m=\dfrac{n!}{(n-m)!m!}$，且p是素数的情况下，我们知道：除了$C_{p}^{0}$ 或 $C_{p}^{p}$，其他都会被mod p 给化掉：
 
+\begin{align*}
+    (1+x)^{p} = \binom{p}{0}a_{0} + \binom{p}{p}a_{p}(\mod p) = 1+x^{p} \\ 
+    (1+x)^{p} - x^{p} = 1
+\end{align*}
+
+这就是经典的幂函数数列$b_{n}=n^{p}$，上述式子可化为：$b_{n+1}-b_{n}=1$。
+由累加可得：$b_{n}=b_{1}+n-1=1^{p}+n-1=n$，则$b_{a}=a^{p}=a$
+
+德政
+
+\subsubsection{多项式展开证明}
+考虑$a^{p}$的多项式展开：
+\begin{align*}
+    (1_{1}+1_{2}+1_{3}+\dots+1_{a-1}+1_{n})^{p}&=\sum_{i=0}^p\binom{p}{k_{1},k_{2},\dots,k_{n}}1^{x}=\sum_{i=0}^p\binom{p}{k_{1},k_{2},\dots,k_{n}}
+\end{align*}
+
+在$\mod p$且$p$是质数的情况下，除了$\binom{p}{p,0,0,\dots,0,0}$、$\binom{p}{0,p,0,\dots,0,0}$等等都会变成0（因为没有数能消掉p除了它自己）；
+
+ps：$\binom{n}{n_{1},n_{2},n_{3},\dots,n_{m-1},n_{m}}=\dfrac{n!}{n_{1}!n_{2}!\dots n_{m-1}!n_{m}!}$
+
+那么在全选一个的情况下，就会有：
+
+\begin{align*}
+    (1_{1}+1_{2}+1_{3}+\dots+1_{a-1}+1_{n})^{p}=a^{p}=1^{p}+1^{p}+\dots+1^{p}+1^{p}=a(\mod p)
+\end{align*}
+
+德政
+
+\subsubsection{模算法证明*}
+
+我们首先考虑整数$a,2a,3a,\dots ,(p - 1)a$。这些数都不等于p对其他数的模，也不等于0。
+如果这样，那么有：$r × a \equiv s × a (\mod p),1 \leq r < s \leq p - 1$；
+那么，两边消去a将得到 $r\equiv (mod p)$，这是不可能的，因为r和s都在1和p - 1之间。
+
+因此，前一组整数想要同余到$1,2,\dots p - 1$。必须把这些同余相乘，你会发现：
+$a × 2a × 3a × ... × (p - 1) × a \equiv 1 × 2 × 3 × ... × (p - 1)(mod p)$
+意味着：
+$a^{p-1} × (p - 1)! \equiv (p - 1)!（mod p）$。
+从这个表达式的两边消去$(p - 1)!$,我们得到：
+$a^{p-1} \equiv 1 (mod p)$。
 
 
 \section{欧拉定理}
 
+
+
+
+\section{求逆}
 
 
 \end{document}

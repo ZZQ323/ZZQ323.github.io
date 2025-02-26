@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}小学的整数知识}{2}{}%
+\contentsline {section}{\numberline {2}带余除法}{3}{}%
+\contentsline {subsection}{\numberline {2.1}欧几里得算法}{3}{}%
+\contentsline {subsection}{\numberline {2.2}贝祖定理（Bézout's Identity） or 裴蜀定理}{4}{}%
+\contentsline {section}{\numberline {3}GCD相关的知识}{6}{}%
+\contentsline {subsection}{\numberline {3.1}奇奇怪怪的等式}{6}{}%
+\contentsline {subsection}{\numberline {3.2}拉梅定理}{7}{}%
+\contentsline {subsection}{\numberline {3.3}欧几里得算法、更相减损数、Stein算法}{7}{}%
+\contentsline {subsection}{\numberline {3.4}LCM}{7}{}%
+\contentsline {subsection}{\numberline {3.5}代数基本定理}{7}{}%
+\contentsline {subsection}{\numberline {3.6}计算方法证明}{7}{}%
+\contentsline {subsection}{\numberline {3.7}LCM与GCD的关系}{8}{}%
+\contentsline {section}{\numberline {4}丢番图}{8}{}%
+\contentsline {section}{\numberline {5}二阶丢番图解的通解问题}{9}{}%
+\contentsline {subsection}{\numberline {5.1}图解证明}{9}{}%
+\contentsline {subsection}{\numberline {5.2}扩展欧几里得算法求特解}{9}{}%
+\contentsline {subsection}{\numberline {5.3}丢番图例题*可跳过}{11}{}%
+\contentsline {subsection}{\numberline {5.4}多元丢番图}{12}{}%
+\contentsline {section}{\numberline {6}同余}{13}{}%
+\contentsline {subsection}{\numberline {6.1}基本性质}{13}{}%
+\contentsline {subsection}{\numberline {6.2}一元线性同余方程}{13}{}%
+\contentsline {subsection}{\numberline {6.3}费马小定理}{14}{}%
+\contentsline {subsubsection}{\numberline {6.3.1}二项式式展开证明}{14}{}%
+\contentsline {subsubsection}{\numberline {6.3.2}多项式展开证明}{14}{}%
+\contentsline {subsubsection}{\numberline {6.3.3}模算法证明*}{15}{}%
+\contentsline {section}{\numberline {7}欧拉定理}{15}{}%
+\contentsline {section}{\numberline {8}求逆}{15}{}%
