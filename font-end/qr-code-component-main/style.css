@@ -25,7 +25,6 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    row-gap: 10px;
 }
 
 .container1 {
@@ -33,11 +32,9 @@ body {
     border: 5px white solid;
     border-radius: 10px;
     width: calc(2 / 9 * 100vw);
-    /* height: 50vh; */
-    padding: 7px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
 }
 
 .outline1 {
@@ -53,12 +50,12 @@ body {
     max-width: 100%;
 }
 
-.container1 > h1{
+.container1 > h1 {
     padding: 0 10px;
     color: hsl(218, 44%, 22%);
     font-weight: 700;
     letter-spacing: 1px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-align: center;
 }
 
@@ -66,6 +63,7 @@ body {
     color: hsl(216, 15%, 48%);
     font-size: 1rem;
     padding: 0 10px;
+    margin: 10px;
     text-align: center;
     font-weight: 400;
 }
@@ -76,6 +74,7 @@ body {
     position: fixed;
     bottom: 15px;
     left: 50%;
+    transform: translate(-50%,0);
 }
 
 .attribution a {
@@ -88,7 +87,7 @@ body {
     top: 30px;
     left: 30px;
     width: 130px;
-
     font-family: Outfit;
     font-size: 1rem;
 }
+
