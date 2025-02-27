@@ -32,7 +32,7 @@ body {
     background-color: white;
     border: 5px white solid;
     border-radius: 10px;
-    width: calc(2/9)vw;
+    width: calc(2 / 9 * 100vw);
     height: 50vh;
     padding: 7px;
     display: flex;
