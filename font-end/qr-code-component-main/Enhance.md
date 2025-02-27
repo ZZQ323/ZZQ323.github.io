@@ -51,6 +51,58 @@ and whenever we modify our cascading style sheet, we ought to update them in the
 ## Media queries
 
 
+just choose how big the screen is , and then set the font-size properly.
+
+notbly, father element and son element might not set the padding and margin  as well , because it's really hard to change so much properties at a time.
+
+
+
+```
+@media screen and (max-width:1280px){
+    .container1{
+        padding: 1.3rem;
+    }
+    .attribution{
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width:1160px){
+    .container1{
+        padding: 1.1rem;
+    }
+    .container1 > h1 {
+        font-size: 1.3rem;
+    }
+    .attribution{
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width:950px){
+    .container1{
+        padding: 0.8rem;
+    }
+    .container1 > h1 {
+        margin: 0.8rem  1rem;
+        font-size: 1.1rem;
+    }
+    .para{
+        margin: 0.8rem 1rem;
+        font-size: 0.8rem;
+    }
+    .attribution{
+        font-size: 0.8rem;
+    }
+}
+```
+
+
+
+Is there any a much more conveient way?
+
+for phone screen , I merely focus on the width while I forget to change the size of the height --- that seems very not good !
+
 
 
 
@@ -64,3 +116,13 @@ and whenever we modify our cascading style sheet, we ought to update them in the
 
 
  
+
+## result
+
+roughly the same?
+
+<img title="" src="../../images/2025-02-28-00-53-59-image.png" alt="" width="246" data-align="center">
+
+
+
+![](../../images/2025-02-28-01-10-33-image.png)

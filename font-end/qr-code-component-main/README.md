@@ -1,6 +1,5 @@
 # Automatic Directories?
 
-
 # Nesscary Infos
 
 - This is a solution to the [QR code component challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/qr-code-component-iux_sIO_H). 
@@ -35,17 +34,11 @@ body {
 }
 ```
 
-
-
 ## Continued development
 
 1. I would like to use grid , and I'm working to finish these again by these. —— as well as @media service for sure.
 
-
-
-
 2. And, I fail to explain that why items in the flex boxes can not set it's float option , when I try to realize a front end pack up function for the "click" event happening on butto --- considerd to be quite helpful for others to help me.
-
 
 ```CSS
 /* in CSS */
@@ -63,7 +56,7 @@ body {
     top: 30px;
     left: 30px;
     width: 130px;
-    
+
     font-family: Outfit;
     font-size: 13px;
 }
@@ -76,7 +69,6 @@ body {
 ```
 
 3. following the 2 , I can not understand what these Js means for I seldomly use the library. --- but I'm keep using it.
-
 
 ```Js
 <script>
@@ -157,10 +149,8 @@ function triggerDownload(blob, filename) {
 
 ## Useful resources
 
-
-
 ## Acknowledgments || Reference
 
-
 ## Author??
+
 Perhasp not ... it's not ready yet.
