@@ -27,6 +27,10 @@ body {
     height: 100vh;
 }
 
+/* 1440 */
+/* 1024 */
+/* 850  */
+
 .container1 {
     background-color: white;
     border: 5px white solid;
@@ -40,13 +44,11 @@ body {
 .outline1 {
     /* border: white solid 3px; */
     width: 100%;
+    /* overflow: auto; */
 }
 
-.outline1 img {
+.outline1 img{
     border-radius: 10px;
-}
-
-.outline1 img {
     max-width: 100%;
 }
 
@@ -69,7 +71,7 @@ body {
 }
 
 .attribution {
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-align: center;
     position: fixed;
     bottom: 15px;
@@ -79,6 +81,66 @@ body {
 
 .attribution a {
     color: hsl(228, 45%, 44%);
+}
+
+@media screen and (max-width:1024px){
+    .container1 > h1 {
+        font-size: 1.2rem;
+    }
+    .para {
+        font-size: 0.75rem;
+    }
+    .attribution{
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width:860px){
+    .container1 > h1 {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    .para {
+        font-size: 0.6rem;
+        margin: 6px;
+    }
+    .attribution{
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width:680px){
+    .container1 > h1 {
+        font-size: 0.7rem;
+        padding: 6px;
+        margin: 0.6em 0;
+    }
+    .para {
+        font-size: 0.5rem;
+        margin: 3px;
+    }
+    .attribution{
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width:570px){
+    .container1{
+        padding: 8px;
+    }
+    .container1 > h1 {
+        font-size: 0.5rem;
+        padding: 0;
+        margin: 0.5em 0;
+    }
+    .para {
+        font-size: 0.4rem;
+        margin: 0;
+        padding:0 3px;
+    }
+    .attribution{
+        font-size: 0.4rem;
+    }
 }
 
 .downloader {
