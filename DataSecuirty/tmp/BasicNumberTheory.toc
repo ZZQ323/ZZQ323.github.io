@@ -22,6 +22,8 @@
 \contentsline {subsection}{\numberline {6.3}费马小定理}{13}{}%
 \contentsline {subsubsection}{\numberline {6.3.1}二项式式展开证明}{13}{}%
 \contentsline {subsubsection}{\numberline {6.3.2}多项式展开证明}{14}{}%
-\contentsline {subsubsection}{\numberline {6.3.3}模算法证明*}{14}{}%
-\contentsline {section}{\numberline {7}欧拉定理}{15}{}%
-\contentsline {section}{\numberline {8}求逆}{15}{}%
+\contentsline {subsubsection}{\numberline {6.3.3}模算法证明}{14}{}%
+\contentsline {subsection}{\numberline {6.4}求逆}{15}{}%
+\contentsline {subsection}{\numberline {6.5}中国剩余定理*}{16}{}%
+\contentsline {section}{\numberline {7}剩余系、数论函数}{18}{}%
+\contentsline {subsection}{\numberline {7.1}剩余系}{18}{}%

@@ -359,6 +359,7 @@ ps：有些参考书会写到n+1，其实都是一样的。
 至于为什么有d个，那是因为：$x=x_{0}+\frac{m}{d}n$，由于解之间的间隔是 $\frac{m}{d}$，模 
 m 下的解是周期性的，而每个解对应于不同的同余类。
 
+如果恰好$d=1$，那么就有唯一解！
 
 \subsection{费马小定理}
 
@@ -398,26 +399,109 @@ ps：$\binom{n}{n_{1},n_{2},n_{3},\dots,n_{m-1},n_{m}}=\dfrac{n!}{n_{1}!n_{2}!\d
 
 德政
 
-\subsubsection{模算法证明*}
+\subsubsection{模算法证明}
 
-我们首先考虑整数$a,2a,3a,\dots ,(p - 1)a$。这些数都不等于p对其他数的模，也不等于0。
+我们首先考虑整数$a,2a,3a,\dots ,(p - 1)a$。这些数都不等于其他数对p的模数，也不等于0。意思就是，他们这一组数是独一无二的。
+
 如果这样，那么有：$r × a \equiv s × a (\mod p),1 \leq r < s \leq p - 1$；
-那么，两边消去a将得到 $r\equiv (mod p)$，这是不可能的，因为r和s都在1和p - 1之间。
+那么，两边消去a将得到 $r\equiv s(\mod p)$，这是不可能的，因为r和s都在1和p - 1之间。
 
-因此，前一组整数想要同余到$1,2,\dots p - 1$。必须把这些同余相乘，你会发现：
-$a × 2a × 3a × ... × (p - 1) × a \equiv 1 × 2 × 3 × ... × (p - 1)(mod p)$
-意味着：
-$a^{p-1} × (p - 1)! \equiv (p - 1)!（mod p）$。
-从这个表达式的两边消去$(p - 1)!$,我们得到：
-$a^{p-1} \equiv 1 (mod p)$。
+因此，前面的假设不成立，$a,2a,3a,\dots ,(p - 1)a$ 在mod p的情况下总能对应 $1,2,\dots p - 1$。
+
+因为是一一对应，但又不好确定谁对谁的关系，所以我们把他们当成整体，全部乘起来：
+$a × 2a × 3a × ... × (p - 1) × a \equiv 1 × 2 × 3 × ... × (p - 1)(\mod p)$
+
+这意味着：$a^{p-1} × (p - 1)! \equiv (p - 1)!(\mod p)$。
+
+从这个表达式的两边消去$(p - 1)!$,我们得到：$a^{p-1} \equiv 1 (\mod p)$。
+
+\subsection{求逆}
+
+求逆就是一元同余方程有唯一解的时候 —— 如果没有唯一解答，那么就有“不止一个逆元”，这就很怪了。
+
+\begin{itemize}
+    \item 扩展欧几里得，把已知的数字当作a，模数当作b —— 这个已经见过多次了
+    \item 费马小定理得知$a^{p}=p(\mod p)$，那么其实就是$a\cdot a^{p-2}=1(\mod p)$
+    \item 如果$a$的模逆是自身$a$（在mod p的情况下），那么$a=1$
+\end{itemize}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\textwidth]{./images/6.21.png}
+    \caption{递推求素数降低复杂度的例题}
+    \label{fig.fig}
+\end{figure}
+
+上题，对于任意$i>1$：
+\begin{align*}
+    &\text{假设：}\;\frac{p}{i}=k\dots r\\
+    &\Rightarrow k\cdot i+r= 0(\mod p)\\
+    &\Rightarrow k+r\cdot i^{-1}= 0(\mod p)\\
+    &\Rightarrow i^{-1}=-\frac{k}{r}=k\cdot r^{-1}=(p-\frac{p}{i})\cdot r^{-1}(\mod p)
+\end{align*}
+
+\subsection{中国剩余定理*}
+
+首先，我们有同余方程，而有方程就有方程组：
+\begin{align*}
+    &x\equiv  a_{1}(\mod m_{1})\\
+    &x\equiv  a_{2}(\mod m_{2})\\
+    &\vdots\\
+    &x\equiv  a_{3}(\mod m_{3})
+\end{align*}
+
+那么我们一个一个满足：
+
+\begin{align*}
+    &x=a_{1}+m_{1}n_{1}\\
+    &x=a_{2}+m_{2}n_{2}\\
+    &\vdots\\
+    &x=a_{r}+m_{r}n_{r}
+\end{align*}
+
+也就是会得到：
+
+\begin{align*}
+    n_{1}&=\dfrac{a_{2}+m_{2}n_{2}-a_{1}}{m_{1}} (\mod m_{2})=(a_{2}+m_{2}n_{2}-a_{1})*m^{-1}_{1} (\mod m_{2})\\
+    n_{1}&=\dfrac{a_{3}+m_{3}n_{3}-a_{1}}{m_{1}} (\mod m_{3})=(a_{3}+m_{3}n_{3}-a_{1})*m^{-1}_{1} (\mod m_{3})\\
+    &\vdots\\
+    n_{1}&=\dfrac{a_{r}+m_{r}n_{r}-a_{1}}{m_{1}} (\mod m_{r})=(a_{r}+m_{r}n_{r}-a_{1})*m^{-1}_{1} (\mod m_{r})
+\end{align*}
+
+把$n_1$当成x，我们继续：
+
+\begin{align*}
+    n_{2}&=\dfrac{a_{3}+m_{3}n_{3}-a_{2}}{m_{2}} (\mod m_{3})=(a_{3}+m_{3}n_{3}-a_{2})*m^{-1}_{2} (\mod m_{3})\\
+    n_{2}&=\dfrac{a_{4}+m_{4}n_{4}-a_{2}}{m_{2}} (\mod m_{4})=(a_{4}+m_{4}n_{4}-a_{2})*m^{-1}_{2} (\mod m_{4})\\
+    &\vdots\\
+    n_{2}&=\dfrac{a_{r}+m_{r}n_{r}-a_{2}}{m_{2}} (\mod m_{r})=(a_{r}+m_{r}n_{r}-a_{2})*m^{-1}_{2} (\mod m_{r})
+\end{align*}
+
+事情直到$n_{r-1}$结束：$n_{r-1}=\dfrac{a_{r}+m_{r}n_{r}-a_{r-1}}{m_{r-1}} (\mod m_{r})=(a_{r}+m_{r}n_{r}-a_{r-1})*m^{-1}_{r-1} (\mod m_{r})$
+
+然后把$n_{r-2}$算出来：$n_{r-2}=[a_{r-1}+(a_{r}+m_{r}n_{r}-a_{r-1})*m^{-1}_{r-1}*m_{r-1}-a_{r-2}]*m^{-1}_{r-2}$
 
 
-\section{欧拉定理}
+还是举个例子：
+\begin{align*}
+    \begin{cases}
+        x&=2(\mod 3)\\
+        x&=3(\mod 5)\\
+        x&=2(\mod 7)
+    \end{cases}
+\end{align*}
 
+由第一个式子：$\Rightarrow x = 2+3k\\$；
+然后我们让第一个式子满足第二个式子：$x = 2+3k=3 (\mod 5)$，解得$k=2(\mod 5)$
+也即$k=5n+2$，那么最终的式子变成：$x = 2+3k = 2+3(5n+2)=2+15n+6=15n+8$
 
+故技重施：$x=15n+8=2(\mod 7)$，那么$15n=1(\mod 7)$，$n=1(\mod 7)$。
+然后$n=7m+1$，则$x=15n+8=105m+15+8=105m+23$。
 
+\section{剩余系、数论函数}
 
-\section{求逆}
+\subsection{剩余系}
+
 
 
 \end{document}
