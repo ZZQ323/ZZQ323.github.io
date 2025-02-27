@@ -33,7 +33,7 @@ body {
     border: 5px white solid;
     border-radius: 10px;
     width: calc(2 / 9 * 100vw);
-    height: 50vh;
+    /* height: 50vh; */
     padding: 7px;
     display: flex;
     flex-direction: column;
@@ -62,14 +62,14 @@ body {
 
 .para {
     color: hsl(216, 15%, 48%);
-    font-size: 15px;
+    font-size: 1rem;
     padding: 0 10px;
     text-align: center;
     font-weight: 400;
 }
 
 .attribution {
-    font-size: 11px;
+    font-size: 1rem;
     text-align: center;
     position: fixed;
     bottom: 15px;
@@ -88,5 +88,5 @@ body {
     width: 130px;
 
     font-family: Outfit;
-    font-size: 13px;
+    font-size: 1rem;
 }
