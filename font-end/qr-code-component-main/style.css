@@ -1,0 +1,91 @@
+/* DIY Fonts */
+
+.playwrite-au-sa-<uniquifier> {
+    font-family: "Playwrite AU SA", serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+
+.outfit-<uniquifier> {
+    font-family: "Outfit", serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+
+html {
+    font-family: Outfit;
+    font-size: 15px;
+}
+
+body {
+    background-color: hsl(212, 45%, 89%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    row-gap: 10px;
+}
+
+.container1 {
+    background-color: white;
+    border: 5px white solid;
+    border-radius: 10px;
+    width: 20vw;
+    height: 50vh;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.outline1 {
+    /* border: white solid 3px; */
+    width: 100%;
+}
+
+.outline1 img {
+    border-radius: 10px;
+}
+
+.outline1 img {
+    max-width: 100%;
+}
+
+.heading1 {
+    text-align: center;
+    /* text-indent: 1ch; */
+    padding: 0 10px;
+    color: hsl(218, 44%, 22%);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.para {
+    color: hsl(216, 15%, 48%);
+    font-size: 13px;
+    padding: 0 10px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.attribution {
+    font-size: 11px;
+    text-align: center;
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%);
+}
+
+.downloader {
+    /* float: left; */
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 130px;
+
+    font-family: Outfit;
+    font-size: 13px;
+}
