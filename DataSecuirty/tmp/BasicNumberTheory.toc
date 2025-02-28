@@ -25,5 +25,8 @@
 \contentsline {subsubsection}{\numberline {6.3.3}模算法证明}{14}{}%
 \contentsline {subsection}{\numberline {6.4}求逆}{15}{}%
 \contentsline {subsection}{\numberline {6.5}中国剩余定理*}{16}{}%
-\contentsline {section}{\numberline {7}剩余系、数论函数}{18}{}%
-\contentsline {subsection}{\numberline {7.1}剩余系}{18}{}%
+\contentsline {section}{\numberline {7}欧拉函数}{18}{}%
+\contentsline {subsection}{\numberline {7.1}同余类、剩余系}{18}{}%
+\contentsline {subsubsection}{\numberline {7.1.1}概念与性质}{18}{}%
+\contentsline {subsubsection}{\numberline {7.1.2}剩余系的复合}{19}{}%
+\contentsline {subsection}{\numberline {7.2}欧拉函数与欧拉定理}{19}{}%
