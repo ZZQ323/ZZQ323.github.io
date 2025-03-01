@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>html5-坦克大战</h1>
+    <!--坦克大战的战场-->
+    <canvas id="tankMap" width="400px" height="300px" style="background-color:black"></canvas>
+    <script type="text/javascript">
+        //得到画布  
+        const canvas1 = document.getElementById("tankMap");
+        //定义一个位置变量  
+        const heroX = 80;
+        const heroY = 80;
+        // 获取画布的 2D 渲染上下文 CanvasRenderingContext2D
+        // 有了这个东西才能画
+        const cxt = canvas1.getContext("2d");
+        //设置颜色  
+        cxt.fillStyle = "#BA9658";
+        //左边的矩形  
+        cxt.fillRect(heroX, heroY, 5, 30);
+        //右边的矩形  
+        cxt.fillRect(heroX + 17, heroY, 5, 30);
+        //画中间的矩形  
+        cxt.fillRect(heroX + 6, heroY + 5, 10, 20);
+        //画出坦克的盖子  
+        cxt.fillStyle = "#FEF26E";
+        // arc(x, y, radius, startAngle, endAngle, counterclockwise （默认为顺时针方向）)
+        // 角度是弧度制的
+        cxt.arc(heroX + 11, heroY + 15, 5, 0, 360, true);
+        cxt.fill();
+        //画出炮筒  
+        cxt.strokeStyle = "#FEF26E";
+        cxt.lineWidth = 1.5;
+
+        cxt.beginPath();
+        cxt.moveTo(heroX + 11, heroY + 15);
+        cxt.lineTo(heroX + 11, heroY);
+        cxt.closePath();
+        cxt.stroke();
+
+        // 画另一个圆
+        cxt.beginPath();
+        cxt.fillStyle = "#BA9658";
+        // arc(x, y, radius, startAngle, endAngle)
+        cxt.arc(200, 200, 50, 0, 2 * Math.PI);
+        cxt.stroke();
+
+        // 三角形的三个角分别位于 (20, 140)、(120, 10) 和 (220, 140)。
+        cxt.beginPath();
+        cxt.moveTo(20, 140); // 将笔移到左下角
+        cxt.lineTo(120, 10); // 连线到顶角
+        cxt.lineTo(220, 140); // 连线到右下角
+        cxt.closePath(); // 连线到左下角
+        cxt.stroke();
+
+        // 笑脸
+        cxt.beginPath();
+        cxt.arc(240, 20, 40, 0, Math.PI);
+        cxt.moveTo(100, 20);
+        cxt.arc(60, 20, 40, 0, Math.PI);
+        cxt.moveTo(215, 80);
+        cxt.arc(150, 80, 65, 0, Math.PI);
+        cxt.closePath();
+        cxt.lineWidth = 6;
+        cxt.stroke();
+    </script>
+</body>
+
+</html>
