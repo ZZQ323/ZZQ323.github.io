@@ -30,3 +30,4 @@
 \contentsline {subsubsection}{\numberline {7.1.1}概念与性质}{18}{}%
 \contentsline {subsubsection}{\numberline {7.1.2}剩余系的复合}{19}{}%
 \contentsline {subsection}{\numberline {7.2}欧拉函数与欧拉定理}{19}{}%
+\contentsline {subsection}{\numberline {7.3}素数幂模同余方程、素数模同余方程 与 整数多项式}{19}{}%
