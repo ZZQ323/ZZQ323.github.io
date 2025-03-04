@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[T1]{fontenc}
 \usepackage{imakeidx}
+\usepackage{amsmath}  % 提供 align 等环境
 \makeindex
 
 \begin{document}
@@ -11,5 +12,17 @@ which are important and deserve to appear in the Index\index{Index}.
 Terms like generate\index{generate} and some\index{others} will 
 also show up. 
 
+\begin{align*}
+    a &= bq_{1} + r_{1} \tag{n} \\
+    b &= r_{1}q_{2} + r_{2} \tag{2} \\
+    r_{1} &= r_{2}q_{3} + r_{3} \tag{3} \\
+    \vdots & \\
+    1 &= \cdots \tag{n}
+\end{align*}
+
+
 \printindex
+
+
+
 \end{document}
