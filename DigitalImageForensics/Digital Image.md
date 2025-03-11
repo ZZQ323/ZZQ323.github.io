@@ -304,6 +304,8 @@ $$g(x,y)=c\cdot\log(1+f(x,y))$$
 
 首先因为：噪声是随机的，那么在无穷样本的状态下接近高斯分布 —— 任何位置都能出现。
 
+> 图像噪声：图像噪声是一种空间上不相联系的、离散的、孤立的像素变化现象，其灰度值与它们相邻像素的灰度值有明显不同。
+
 ![](../images/mk-2025-03-11-09-21-38mk-.png)
 
 那么根据概率密度函数，大部分都分布在离中轴相当近的位置，以及他们的期望是0
@@ -541,7 +543,7 @@ $$
 
 在图像平面中对图像的像素灰度值直接进行运算处理
 
-### 基于点运算
+### 点运算
 
 逐像素点对图像进行增强
 
@@ -567,22 +569,299 @@ $$
 ![](../images/mk-2025-03-11-11-59-20mk-.png)
 ![](../images/mk-2025-03-11-11-59-25mk-.png)
 
-### 基于直方图
+### 直方图均衡 - 基于变上限积分的方法
 
 通过全部或局部地改变图像的对比度。
 
-根据图表分析：当一幅图像的像素占据了所有可能的灰度级范围并呈均匀分布时，则该图像具有比较高的对比度和多变的灰度色调。
+根据图表分析：当一幅图像的像素占据了所有可能的灰度级范围并呈均匀分布时，则该图像具有**比较高的对比度**和**多变的灰度色调**。
 
 所以基于直方图的增强方法，就是从相对比较集中的某个灰度区间变成在全部灰度范围内的均匀分布，来进行图像增强的方法。
 
-变换后的灰度保持从黑到白的单一变化顺序，且变换范围与原先一致；
+变换后的灰度要求保证**从黑到白**的单一变化顺序，并且**变换范围与原先一致**；
+
+其主要思想是，将一副图像的直方图分布通过累积分布函数变成近似均匀分布，从而增强图像的对比度。
+
+由概率论中的知识[^1]，我们意外得知如果对归一化的直方图里面的数据进行积分，把积分之后的值代替积分前的数值，那么我们就能得到一个更加平滑的图像。
+
+假设变上限定积分函数：$p^{'}_x=\int_0^{x}p_i=\sum_{0}^{x}p_i$
+
+当然，我们不能直接改个频率就当做整个图像变了 —— 所以我们还要倒回去改每个像素的数值。
+
+至于怎么改 …… 不可能对着表格要求一个一个改然后验证吧 —— 所以大概改个整数出来就行了。
+
+对于：$p^{'}_x$，其改变后的数值是：$x^{'}=Round((L-1)\times p^{'}_x)$
+
+### 直方图规定化 - 基于已知函数的反函数的方法
+
+直方图规定化就是一种把已知直方图的图像变换成具有某种特定分布直方图的图像增强方法。
+
+如果期望求到一个目标分布$G(z)=\int p^{'}_x$，那么我们就需要把所有的像素点挨个从$i$变成$z$.
+鉴于我们在变换完成之后，我们有$G(z)=\int p(i)$的关系；
+其实我们直接计算$z=G^{-1}(\int p(i))$，然后进行逐元素替换即可。
+
+对于离散的情况，我们就找积分后的概率最相近的部分，然后进行替换即可 —— 这是最简单的方法。
+
+![](../images/mk-2025-03-11-13-28-52mk-.png)
+
+**思考**：
+
+为什么要先求积分然后再求反函数呢？
+
+PDF（概率密度函数）不一定可直接反函数，CDF（累计分布函数）才是单调可逆；
+因为函数可逆性的一个基本要求是单调或至少“严格单调”；如果直接求p^{'}_x的反函数，可能就求不出来了，但是积分过后，根据 概率恒大于0 这个性质，我们就能保证一定有反函数了。
 
 
+### 重要概念：卷积
+
+利用模板或掩模对图像的邻域像素进行处理。
 
 
-### 基于空间滤波
+所谓卷积，其实就是把一个函数卷(翻)过来，然后与另一个函数求内积。
 
-利用模板或掩模对图像的邻域像素进行处理
+卷积是一个“反转后平移”的操作。
+和的卷积就可以写成：$$(f*g)(x)=\int_{-\infin}^{\infin}f(\tau)g(x-\tau)$$
+
+**举例**：同时掷两个骰子1次，它们正面朝上数字和为4的概率是多少？
+$$P{X=4}=(f*g)(4)=\sum_{-\infin}^{\infin}f(\tau)g(4-\tau)=\sum_{\tau=1}^{3}f(\tau)g(4-\tau)$$
+
+写成内积的形式就是：$$\begin{bmatrix}f(1)\\ f(2)\\\vdots\\ f(n-1)\end{bmatrix}\cdot\begin{bmatrix}g(x-1)\\ g(x-2)\\\vdots\\ g(1)\end{bmatrix}$$
+
+**有的时候函数里面是可以取0的，这一点要注意**。
+
+求相关 (Correlation)的时候，直接逐点相乘并求和即可。
+求卷积 (Convolution)的时候，要把其中一个序列数先前后反转，然后直接逐点相乘并求和即可[^2]。
+
+![](../images/mk-2025-03-11-13-45-13mk-.png)
+
+| 性质 | 卷积 | 相关 |
+| --- | --- | --- |
+| 交换律 | $f* g=g*f$         | 不成立 |
+| 结合律 | $f*(g*h)=(g*f)*h$  | 不成立 |
+| 分配律 | $f*(g+ h)=f*g+f*h$ | 成立 |
+
+**边界延拓**
+
+补零延拓：0像素值填充扩充的边界值
+对称延拓：最边缘像素为轴对称复制
+复制延拓：复制最边缘像素为轴
+循环延拓：另外一边边界上的像素补偿填充
+
+
+<div class="contain" style="display: flex;justify-content: space-around;">
+    <img src="../images/mk-2025-03-11-14-05-18mk-.png" style="max-width:35vw"/>
+    <img src="../images/mk-2025-03-11-14-05-35mk-.png" style="max-width:35vw"/>
+</div>
+
+### 空间滤波 - 基于卷积运算的方法
+
+图像噪声：图像噪声是一种空间上不相联系的、离散的、孤立的像素变化现象，其灰度值与它们相邻像素的灰度值有明显不同。
+
+椒盐噪声
+脉冲噪声
+
+高频信号：图中**变化剧烈**的部分，例如边缘和噪声等，称为高频信号。
+低频信号：图中**变化平缓**的部分，称为低频信号。
+
+低通滤波：把保留低频信号并**滤掉高频信号**的处理过程，称为低通滤波。（平滑）
+高通滤波：把保留高频信号并**滤掉低频信号**的处理过程，称为高通滤波。（锐化）
+
+**邻域平均法实现线性平滑滤波**
+
+![](../images/mk-2025-03-11-14-14-30mk-.png)
+
+邻域越大，在去噪能力增强的同时模糊程度越严重
+
+
+**超限像素邻域平均法实现线性平滑滤波**
+
+![](../images/mk-2025-03-11-14-15-35mk-.png)
+
+**均值滤波法实现线性平滑滤波**
+
+![](../images/mk-2025-03-11-14-17-12mk-.png)
+
+**空间滤波器的模板**
+
+考虑几个问题：
+
+1. 滤波器的系数根据其支持怎么样的操作来选择
+2. 线性滤波的作用是实现乘积求和操作：加权求和
+3. 非线性滤波要求确定邻域大小，以及对包含在邻域内的图像像素执行的操作
+
+![](../images/mk-2025-03-11-14-18-25mk-.png)
+
+![](../images/mk-2025-03-11-14-18-40mk-.png)
+
+**利用多幅同一场景图像实现线性平滑滤波**
+
+上面在“图像加法部分”提及过了。
+
+**中值滤波实现非线性平滑滤波**
+
+中值滤波是一种基于排序统计理论的非线性滤波方法
+对原图像中被该窗口覆盖的所有像素的灰度值进行排序，用其中间值代替结果图像中对应于滤波窗口最中间的那个像素点的灰度值。
+
+![](../images/mk-2025-03-11-14-23-29mk-.png)
+
+**去噪效果比较**
+
+对于椒盐噪声，**中值**滤波效果比**均值**滤波效果好。
+对于高斯噪声，**均值**滤波效果比**中值**滤波效果好。
+
+椒盐噪声是幅值近似相等但随机分布在不同位置上，图像中有干净点也有污染点。中值滤波是选择适当的点来替代污染点的值，所以处理效果好。因为噪声的均值不为0，所以均值滤波不能很好地去除噪声点。
+
+高斯噪声是幅值近似正态分布，但分布在每点像素上。因为正态分布的均值为0，所以均值滤波可以消除噪声。因为图像中的每点都是污染点，所以中值滤波选不到干净点。
+
+### 基于差分的方法
+
+函数的增长率就是梯度。
+一元函数的梯度只由一个方向构成，所以梯度=导数；
+那么二元函数的梯度，由两个方向构成，大小也是两个方向上导数的平方和。
+也即：
+$$
+\begin{align*}
+f^{'}(x)&=\frac{df(x)}{dx}=\lim_{\Delta x\rightarrow0}\frac{f(x+\Delta x)}{\Delta x}\\
+f^{'}_x(x,y)&=\frac{\partial f(x,y)}{\partial x}=\lim_{\Delta x\rightarrow0}\frac{f(x+\Delta x,y)}{\Delta x}\\
+\nabla f(x,y)&=\frac{\partial f(x,y)}{\partial x}\vec{x}+\frac{\partial f(x,y)}{\partial y}\vec{y}=(\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y})\\
+G(x,y)&=\sqrt{(\frac{\partial f(x,y)}{\partial x})^2+(\frac{\partial f(x,y)}{\partial y})^2}\\
+\phi(x,y)&=arctan(\dfrac{\frac{\partial f(x,y)}{\partial y}}{\frac{\partial f(x,y)}{\partial x}})
+\end{align*}
+$$
+
+那么根据这一种理解，我们很容易写出 “整数” 形式的 “导数”（差分）：
+
+$$G(x,y)=\sqrt{(f(i+1,j)-f(i,j))^2+(f(i,j+1)-f(i,j))^2}$$
+
+但是平方计算量大，所以还可以简化为**水平垂直差分法**：
+
+$$G(x,y)=|f(i+1,j)-f(i,j)|+|f(i,j+1)-f(i,j)|$$
+
+写成滤波模板的话：
+
+$$
+G_x=
+\begin{bmatrix}
+    1&-1\\
+    0&0
+\end{bmatrix} \qquad
+G_y=
+\begin{bmatrix}
+    1&0\\
+    -1&0
+\end{bmatrix}
+$$
+
+<div class="container"
+    style="display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-between;
+    row-gap:10px
+    ">
+    <img src="../images/mk-2025-03-11-15-00-27mk-.png" style="width:300px;border:3px dotted black;">
+    <img src="../images/mk-2025-03-11-15-00-33mk-.png" style="width:300px;border:3px dotted black;">
+    <img src="../images/mk-2025-03-11-15-00-45mk-.png" style="width:300px;border:3px dotted black;">
+</div>
+
+**罗伯特差分法**：
+
+$$G(x,y)=|f(i+1,j+1)-f(i,j)|+|f(i+1,j)-f(i,j+1)|$$
+$$
+G_x=
+\begin{bmatrix}
+    1&0\\
+    0&-1
+\end{bmatrix} \qquad
+G_y=
+\begin{bmatrix}
+    0&1\\
+    -1&0
+\end{bmatrix}
+$$
+
+**Sobel算子**
+
+$$
+d_x=\begin{bmatrix}1&0&-1\\2&0&-2\\1&0&-1\end{bmatrix}
+\qquad
+d_y=\begin{bmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{bmatrix}
+$$
+
+**Prewitt算子**
+
+$$
+S_x=\begin{bmatrix}1&1&1\\0&0&0\\-1&-1&-1\end{bmatrix}\qquad
+S_y=\begin{bmatrix}1&0&-1\\1&0&-1\\1&0&-1\end{bmatrix}
+$$
+
+**增强方法**
+
+直接使用梯度会得到黑白图 —— 显然不是我们想要的东西。
+将梯度的数值叠加到图像上才是我们想要的增强效果。
+
+### 基于二阶差分
+
+根据定义，二阶差分就是离散的二阶导数。
+
+![](../images/mk-2025-03-11-15-12-53mk-.png)
+
+对于连续函数，我们有梯度算子和散度算子：
+$$
+\nabla f(x,y)=(\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y})\\
+\nabla \vec F(x,y)=\frac{\partial F_x}{\partial x}(x,y)+\frac{\partial F_y}{\partial x}(x,y)
+$$
+
+所以我们结合梯度和散度，得到拉普拉斯算子：
+
+$$
+\begin{align*}
+\nabla^2 f(x,y)&=\nabla \nabla f(x,y)\\
+&=\nabla (\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y})\\
+&=\dfrac{\partial \frac{\partial f(x,y)}{\partial x}}{\partial x}(x,y)+\dfrac{\partial \frac{\partial f(x,y)}{\partial y}}{\partial y}(x,y)\\
+&=\frac{\partial^2 f(x,y)}{\partial x^2}+\frac{\partial^2 f(x,y)}{\partial y^2}
+\end{align*}
+$$
+
+拉普拉斯算子在一定意义上可以看作是二元函数中“**一元函数的二阶导数**”的推广，用来描述函数梯度的整体变化率或局部平滑性 —— 而不是简单地对函数求二阶偏导数来表示。
+
+继续根据连续函数的意义转换成离散版本的：
+
+$$
+\begin{align*}
+\nabla^2 f&=(\nabla f(i+1,j)-\nabla f(i,j))+(\nabla f(i,j+1)-\nabla f(i,j))\\
+&=((f(i+2,j)-f(i+1,j))-(f(i+1,j)-f(i,j)))
+\\&+((f(i,j+2)-f(i,j+1))-(f(i,j+1)-f(i,j)))\\
+&=f(i+2,j)-2f(i+1,j)+f(i,j)+f(i,j+2)-2f(i,j+1)+f(i,j)\\
+&=\begin{bmatrix}
+    0&f(i,j+1)&0\\
+    f(i+1,j)&-4f(i+1,j+1)&f(i+1,j+2)\\
+    0&f(i+2,j+1)&0
+\end{bmatrix}\\
+&=\begin{bmatrix}
+f(i,j)&f(i,j+1)&f(i,j+2)\\
+f(i+1,j)&-4f(i+1,j+1)&f(i+1,j+2)\\
+f(i+2,j)&f(i+2,j+1)&f(i+2,j+2)
+\end{bmatrix}
+\begin{bmatrix}
+0&1&0\\
+1&-4&1\\
+0&1&0
+\end{bmatrix}\\
+&=\sum_{s=-1}^{1}\sum_{t=-1}^{1} f(i+s,j+t)H(s,t)
+\end{align*}
+$$
+
+<div class="container"
+    style="display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-between;
+    row-gap:10px
+    ">
+    <img src="../images/mk-2025-03-11-15-37-30mk-.png" style="width:400px;border:3px dotted black;">
+    <img src="../images/mk-2025-03-11-15-38-35mk-.png" style="width:400px;border:3px dotted black;">
+</div>
+
 
 ## 频率域上
 
@@ -590,3 +869,7 @@ $$
 
 # Reference
 
+[^1]:https://www.cnblogs.com/jiujiubashiyi/p/16413228.html
+[^2]:动图网站：
+https://towardsdatascience.com/convolution-vs-correlation-af868b6b4fb5/
+https://www.songho.ca/dsp/convolution/convolution2d_example.html
